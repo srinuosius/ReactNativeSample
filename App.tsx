@@ -7,26 +7,30 @@
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {createContext, useState} from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import ActivityScreen from './screens/ActivityScreen';
 import AddScreen from './screens/AddScreen';
 import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import SearchScreen from './screens/SearchScreen';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  TouchableOpacity,
-  SafeAreaView,
-  TextInput,
-} from 'react-native';
+import SettingScreen from './screens/SettingScreen';
+
+export const store = createContext({});
 
 function App(): JSX.Element {
+  const [contextData, setContextData] = useState({
+    login: false,
+  });
   const Tab = createBottomTabNavigator();
-  const [login, setLogin] = useState(false);
   const [data, setData] = useState({
     username: '',
     password: '',
@@ -41,7 +45,10 @@ function App(): JSX.Element {
   const onLogin = () => {
     console.log('Trigger');
     if (data.username && data.password) {
-      setLogin(!login);
+      setContextData({
+        ...contextData,
+        login: !contextData?.login,
+      });
     } else {
       setErrorData({
         password: 'Required Field *',
@@ -50,8 +57,8 @@ function App(): JSX.Element {
     }
   };
   return (
-    <>
-      {login ? (
+    <store.Provider value={[contextData, setContextData]}>
+      {contextData?.login ? (
         <NavigationContainer>
           <Tab.Navigator
             screenOptions={({route}: any) => ({
@@ -89,6 +96,7 @@ function App(): JSX.Element {
             <Tab.Screen name="Add" component={AddScreen} />
             <Tab.Screen name="Activity" component={ActivityScreen} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
+            {/* <Tab.Screen name="Profile" component={SettingScreen} /> */}
           </Tab.Navigator>
         </NavigationContainer>
       ) : (
@@ -179,7 +187,7 @@ function App(): JSX.Element {
           </View>
         </View>
       )}
-    </>
+    </store.Provider>
   );
 }
 
