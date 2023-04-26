@@ -28,7 +28,7 @@ export const store = createContext({});
 
 function App(): JSX.Element {
   const [contextData, setContextData] = useState({
-    login: false,
+    login: true,
   });
   const Tab = createBottomTabNavigator();
   const [data, setData] = useState({
