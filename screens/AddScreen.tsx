@@ -7,17 +7,28 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Loader from '../components/Loader';
+import {useIsFocused} from '@react-navigation/native';
 
-const AddScreen = ({navigation}: any) => {
+const AddScreen = ({navigation, route}: any) => {
   const [data, setData] = useState({
     vendor_name: '',
     vendor_phone: '',
     brandName: '',
     quantity: '',
   });
+  console.log('By ID Data', data);
   const [loader, setLoader] = useState(false);
+  const params = route && route.params;
+  const isFocused = useIsFocused();
+  console.log('paramsparams', params);
+
+  useEffect(() => {
+    if (isFocused && params && params.id) {
+      fetchDatabyId(params.id);
+    }
+  }, [isFocused, params]);
 
   const addData = () => {
     setLoader(true);
@@ -44,7 +55,20 @@ const AddScreen = ({navigation}: any) => {
       console.log(err);
     }
   };
-
+  const fetchDatabyId = (id: any) => {
+    setLoader(true);
+    try {
+      fetch(`http://10.0.2.2:3005/getbranditem/${id}`)
+        .then(res => res.json())
+        .then(data => {
+          setData(data);
+          setLoader(false);
+        });
+    } catch (err) {
+      setLoader(false);
+      console.log(err);
+    }
+  };
   return (
     <SafeAreaView>
       <ScrollView>
@@ -77,7 +101,7 @@ const AddScreen = ({navigation}: any) => {
                     vendor_phone: e,
                   });
                 }}
-                value={data?.vendor_phone}
+                value={data?.vendor_phone.toString()}
               />
               <Text style={styles.inputTitle}>Brand Name</Text>
               <TextInput
@@ -102,7 +126,7 @@ const AddScreen = ({navigation}: any) => {
                     quantity: e,
                   });
                 }}
-                value={data?.quantity}
+                value={data?.quantity.toString()}
               />
               <TouchableOpacity
                 onPress={() => addData()}

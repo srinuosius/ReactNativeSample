@@ -16,7 +16,6 @@ const HomeScreen = ({navigation}: any) => {
   const [brandsData, setBrandsData]: any = useState([]);
   const [loader, setLoader] = useState(false);
   const isFocused = useIsFocused();
-  console.log({brandsData});
   useEffect(() => {
     if (isFocused) {
       fetchData();
@@ -144,7 +143,11 @@ const HomeScreen = ({navigation}: any) => {
                               // width: '15%',
                               marginRight: 5,
                             }}
-                            onPress={() => navigation.navigate('Add')}>
+                            onPress={() =>
+                              navigation.navigate('Add', {
+                                id: v?._id,
+                              })
+                            }>
                             <Text
                               style={{
                                 color: 'white',
