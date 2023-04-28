@@ -5,6 +5,7 @@ import {store} from '../App';
 
 const SettingScreen = () => {
   const [contextData, setContextData]: any = useContext(store);
+
   return (
     <View style={styles.mainView}>
       {/* <TouchableOpacity style={styles.settingsIcon}>

@@ -7,6 +7,7 @@ import CustomDrawer from './CustomDrawer';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import MessagesScreen from './MessagesScreen';
 import AboutScreen from './AboutScreen';
+import Register from './Register';
 
 const Drawer = createDrawerNavigator();
 
@@ -56,6 +57,16 @@ export default function App() {
           name="About"
           component={AboutScreen}
           options={{
+            drawerIcon: ({color}) => (
+              <Ionic name="person-outline" size={22} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Register"
+          component={Register}
+          options={{
+            headerShown: false,
             drawerIcon: ({color}) => (
               <Ionic name="person-outline" size={22} color={color} />
             ),

@@ -28,6 +28,14 @@ const AddScreen = ({navigation, route}: any) => {
     if (isFocused && params && params.id) {
       fetchDatabyId(params.id);
     }
+
+    return () =>
+      setData({
+        vendor_name: '',
+        vendor_phone: '',
+        brandName: '',
+        quantity: '',
+      });
   }, [isFocused, params]);
 
   const addData = () => {
@@ -41,6 +49,32 @@ const AddScreen = ({navigation, route}: any) => {
       fetch('http://10.0.2.2:3005/addbrands', requestOptions)
         .then(res => res.json())
         .then(data => {
+          navigation.navigate('Home');
+          setLoader(false);
+          setData({
+            vendor_name: '',
+            vendor_phone: '',
+            brandName: '',
+            quantity: '',
+          });
+        });
+    } catch (err) {
+      setLoader(false);
+      console.log(err);
+    }
+  };
+  const updateData = (id: any) => {
+    setLoader(true);
+    try {
+      const requestOptions = {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data),
+      };
+      fetch(`http://10.0.2.2:3005/updatebrand/${id}`, requestOptions)
+        .then(res => res.json())
+        .then(data => {
+          console.log('res data', data);
           navigation.navigate('Home');
           setLoader(false);
           setData({
@@ -73,7 +107,9 @@ const AddScreen = ({navigation, route}: any) => {
     <SafeAreaView>
       <ScrollView>
         <View style={{}}>
-          <Text style={styles.textStyle}>Add Brand Item</Text>
+          <Text style={styles.textStyle}>
+            {params?.id ? 'Update' : 'Add'} Brand Item
+          </Text>
           {loader ? (
             <Loader />
           ) : (
@@ -129,9 +165,14 @@ const AddScreen = ({navigation, route}: any) => {
                 value={data?.quantity.toString()}
               />
               <TouchableOpacity
-                onPress={() => addData()}
+                onPress={() =>
+                  params?.id ? updateData(params?.id) : addData()
+                }
                 style={styles.buttonStyle}>
-                <Text style={styles.buttonText}>Submit</Text>
+                <Text style={styles.buttonText}>
+                  {' '}
+                  {params?.id ? 'Update' : 'Submit'}
+                </Text>
               </TouchableOpacity>
             </View>
           )}

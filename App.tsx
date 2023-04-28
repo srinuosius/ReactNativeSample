@@ -23,39 +23,20 @@ import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import SearchScreen from './screens/SearchScreen';
 import SettingScreen from './screens/SettingScreen';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Register from './screens/Register';
+import LoginScreen from './screens/LoginScreen';
 
 export const store = createContext({});
+const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
   const [contextData, setContextData] = useState({
-    login: true,
+    login: false,
   });
+
   const Tab = createBottomTabNavigator();
-  const [data, setData] = useState({
-    username: '',
-    password: '',
-  });
-  const [errorData, setErrorData] = useState({
-    username: '',
-    password: '',
-  });
 
-  console.log({errorData});
-
-  const onLogin = () => {
-    console.log('Trigger');
-    if (data.username && data.password) {
-      setContextData({
-        ...contextData,
-        login: !contextData?.login,
-      });
-    } else {
-      setErrorData({
-        password: 'Required Field *',
-        username: 'Required Field *',
-      });
-    }
-  };
   return (
     <store.Provider value={[contextData, setContextData]}>
       {contextData?.login ? (
@@ -100,92 +81,103 @@ function App(): JSX.Element {
           </Tab.Navigator>
         </NavigationContainer>
       ) : (
-        <View style={styles.viewStyle}>
-          <View style={styles.btnsView}>
-            <Text style={styles.titleText}>Welcome</Text>
-            <SafeAreaView>
-              <TextInput
-                style={styles.input}
-                placeholder="Enter Username"
-                onChangeText={e => {
-                  setData({
-                    ...data,
-                    username: e,
-                  });
-
-                  if (e) {
-                    setErrorData({
-                      ...errorData,
-                      username: '',
-                    });
-                  } else {
-                    setErrorData({
-                      ...errorData,
-                      username: 'Required Field *',
-                    });
-                  }
-                }}
-                value={data.username}
-              />
-              <View>
-                <Text style={styles.errorMsg}>
-                  {errorData?.username ? errorData.username : ''}
-                </Text>
-              </View>
-              <TextInput
-                style={styles.input}
-                // keyboardType="phone-pad"
-                secureTextEntry={true}
-                onChangeText={e => {
-                  setData({
-                    ...data,
-                    password: e,
-                  });
-                  if (e) {
-                    setErrorData({
-                      ...errorData,
-                      password: '',
-                    });
-                  } else {
-                    setErrorData({
-                      ...errorData,
-                      password: 'Required Field *',
-                    });
-                  }
-                }}
-                placeholder="Enter Password"
-                value={data.password}
-              />
-              <View>
-                <Text style={styles.errorMsg}>
-                  {errorData?.password ? errorData.password : ''}
-                </Text>
-              </View>
-            </SafeAreaView>
-            {/* <View style={styles.btnStyle}>
-            <Button
-              onPress={() => setLogin(!login)}
-              title="Login"
-              color="#841584"
-              accessibilityLabel="Learn more about this purple button"
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="login">
+            <Stack.Screen
+              options={{
+                headerShown: false,
+              }}
+              name="register"
+              component={Register}
             />
-            </View> */}
-            <TouchableOpacity
-              onPress={() => onLogin()}
-              style={styles.buttonStyle}>
-              <Text style={styles.buttonText}> LET'S GET STARTED </Text>
-            </TouchableOpacity>
+            <Stack.Screen
+              options={{
+                headerShown: false,
+              }}
+              name="login"
+              component={LoginScreen}
+            />
+          </Stack.Navigator>
 
-            <View style={styles.bottomView}>
-              <TouchableOpacity>
-                <Text>Sign-Up ?</Text>
+          {/* <View style={styles.viewStyle}>
+            <View style={styles.btnsView}>
+              <Text style={styles.titleText}>Welcome</Text>
+              <SafeAreaView>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Enter Username"
+                  onChangeText={e => {
+                    setData({
+                      ...data,
+                      username: e,
+                    });
+
+                    if (e) {
+                      setErrorData({
+                        ...errorData,
+                        username: '',
+                      });
+                    } else {
+                      setErrorData({
+                        ...errorData,
+                        username: 'Required Field *',
+                      });
+                    }
+                  }}
+                  value={data.username}
+                />
+                <View>
+                  <Text style={styles.errorMsg}>
+                    {errorData?.username ? errorData.username : ''}
+                  </Text>
+                </View>
+                <TextInput
+                  style={styles.input}
+                  secureTextEntry={true}
+                  onChangeText={e => {
+                    setData({
+                      ...data,
+                      password: e,
+                    });
+                    if (e) {
+                      setErrorData({
+                        ...errorData,
+                        password: '',
+                      });
+                    } else {
+                      setErrorData({
+                        ...errorData,
+                        password: 'Required Field *',
+                      });
+                    }
+                  }}
+                  placeholder="Enter Password"
+                  value={data.password}
+                />
+                <View>
+                  <Text style={styles.errorMsg}>
+                    {errorData?.password ? errorData.password : ''}
+                  </Text>
+                </View>
+              </SafeAreaView>
+
+              <TouchableOpacity
+                onPress={() => onLogin()}
+                style={styles.buttonStyle}>
+                <Text style={styles.buttonText}> LET'S GET STARTED </Text>
               </TouchableOpacity>
-              <TouchableOpacity>
-                <Text>Forgot Password</Text>
-              </TouchableOpacity>
+
+              <View style={styles.bottomView}>
+                <TouchableOpacity>
+                  <Text>Sign-Up ?</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Text>Forgot Password</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </View>
+          </View> */}
+        </NavigationContainer>
       )}
     </store.Provider>
   );

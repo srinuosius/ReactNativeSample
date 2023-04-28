@@ -117,10 +117,10 @@ const HomeScreen = ({navigation}: any) => {
                           <Image
                             source={require('../assets/images/addidas.png')}
                             style={{
-                              height: 80,
-                              width: 80,
+                              height: 70,
+                              width: 70,
                               // borderRadius: 40,
-                              marginBottom: 5,
+                              marginBottom: 2,
                             }}
                           />
                         </View>
