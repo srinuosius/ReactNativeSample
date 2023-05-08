@@ -8,7 +8,7 @@ const AboutScreen = () => {
   return (
     <View style={styles.viewStyle}>
       <Text style={styles.textStyle}>About User</Text>
-      <View>
+      <View style={{padding: 15}}>
         <Text style={styles.textStyl1}>
           Username : {contextData?.userInfo?.username}
         </Text>
@@ -17,6 +17,9 @@ const AboutScreen = () => {
         </Text>
         <Text style={styles.textStyl1}>
           Phone : {contextData?.userInfo?.phone}
+        </Text>
+        <Text style={styles.textStyl1}>
+          token : {contextData?.userInfo?.token}
         </Text>
       </View>
     </View>

@@ -18,11 +18,10 @@ const AddScreen = ({navigation, route}: any) => {
     brandName: '',
     quantity: '',
   });
-  console.log('By ID Data', data);
+
   const [loader, setLoader] = useState(false);
   const params = route && route.params;
   const isFocused = useIsFocused();
-  console.log('paramsparams', params);
 
   useEffect(() => {
     if (isFocused && params && params.id) {

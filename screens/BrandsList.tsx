@@ -12,7 +12,7 @@ import Ionic from 'react-native-vector-icons/Ionicons';
 import {useIsFocused} from '@react-navigation/native';
 import Loader from '../components/Loader';
 
-const HomeScreen = ({navigation}: any) => {
+const BrandsList = ({navigation}: any) => {
   const [brandsData, setBrandsData]: any = useState([]);
   const [loader, setLoader] = useState(false);
   const isFocused = useIsFocused();
@@ -187,7 +187,7 @@ const HomeScreen = ({navigation}: any) => {
   );
 };
 
-export default HomeScreen;
+export default BrandsList;
 
 export const styles = StyleSheet.create({
   // viewStyle: {

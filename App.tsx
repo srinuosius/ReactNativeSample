@@ -19,13 +19,15 @@ import {
 import Ionic from 'react-native-vector-icons/Ionicons';
 import ActivityScreen from './screens/ActivityScreen';
 import AddScreen from './screens/AddScreen';
-import HomeScreen from './screens/HomeScreen';
+import HomeScreen from './screens/BrandsList';
 import ProfileScreen from './screens/ProfileScreen';
 import SearchScreen from './screens/SearchScreen';
 import SettingScreen from './screens/SettingScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Register from './screens/Register';
 import LoginScreen from './screens/LoginScreen';
+import Home1Screen from './screens/Home1Screen';
+import BrandsList from './screens/BrandsList';
 
 export const store = createContext({});
 const Stack = createNativeStackNavigator();
@@ -72,7 +74,8 @@ function App(): JSX.Element {
               },
               headerShown: false,
             })}>
-            <Tab.Screen name="Home" component={HomeScreen} />
+            {/* <Tab.Screen name="Home" component={HomeScreen} /> */}
+            <Tab.Screen name="Home" component={BrandsList} />
             <Tab.Screen name="Search" component={SearchScreen} />
             <Tab.Screen name="Add" component={AddScreen} />
             <Tab.Screen name="Activity" component={ActivityScreen} />
