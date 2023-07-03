@@ -28,6 +28,7 @@ import Register from './screens/Register';
 import LoginScreen from './screens/LoginScreen';
 import Home1Screen from './screens/Home1Screen';
 import BrandsList from './screens/BrandsList';
+import ForgotPassword from './screens/ForgotPassword';
 
 export const store = createContext({});
 const Stack = createNativeStackNavigator();
@@ -99,6 +100,13 @@ function App(): JSX.Element {
               }}
               name="login"
               component={LoginScreen}
+            />
+            <Stack.Screen
+              options={{
+                headerShown: false,
+              }}
+              name="forgotpassword"
+              component={ForgotPassword}
             />
           </Stack.Navigator>
 

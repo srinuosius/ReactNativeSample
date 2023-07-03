@@ -107,7 +107,7 @@ const LoginScreen = ({navigation}: any) => {
             <SafeAreaView>
               <TextInput
                 style={styles.input}
-                placeholder="Enter E-Mail"
+                placeholder="Enter your E-Mail"
                 onChangeText={e => {
                   setData({
                     ...data,
@@ -154,7 +154,7 @@ const LoginScreen = ({navigation}: any) => {
                     });
                   }
                 }}
-                placeholder="Enter Password"
+                placeholder="Enter your Password"
                 value={data.password}
               />
               <View>
@@ -181,7 +181,8 @@ const LoginScreen = ({navigation}: any) => {
               <TouchableOpacity onPress={() => navigation.navigate('register')}>
                 <Text>Sign-Up ?</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('forgotpassword')}>
                 <Text>Forgot Password</Text>
               </TouchableOpacity>
             </View>
